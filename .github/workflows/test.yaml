@@ -9,23 +9,10 @@ permissions:
 
 jobs:
   build:
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-          - ubuntu-latest
-        java:
-          - 11
-        maven:
-          - 3.9.6
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: s4u/setup-maven-action@v1.11.0
-        with:
-          java-distribution: 'temurin'
-          java-version: ${{ matrix.java }}
-          maven-version: ${{ matrix.maven }}
+        uses: actions/checkout@v4
       - name: Create report file
         run: |
           timestamp=$(date +"%Y%m%d-%H%M")
