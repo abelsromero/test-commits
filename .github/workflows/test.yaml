@@ -1,4 +1,4 @@
-name: Node.js CI and Commit
+name: Commit Test
 
 on:
   push:
@@ -13,11 +13,20 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+      - name: Create report file
+        run: |
+          timestamp=$(date +"%Y%m%d-%H%M")
+          echo $timestamp > "report-${timestamp}.txt"
+      - name: Commit report
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add .
+          git commit -am "Automated report"
+          git push
       - name: Create and commit file
         run: |
           echo "This is a sample file created by GitHub Actions" > sample-file.txt
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
           git add sample-file.txt
           git commit -m "Add sample file"
           git push
