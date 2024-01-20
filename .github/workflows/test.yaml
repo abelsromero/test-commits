@@ -21,7 +21,11 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: s4u/setup-maven-action@v1.11.0
+        with:
+          java-distribution: 'temurin'
+          java-version: ${{ matrix.java }}
+          maven-version: ${{ matrix.maven }}
       - name: Create report file
         run: |
           timestamp=$(date +"%Y%m%d-%H%M")
